@@ -11,8 +11,9 @@ module Autodns
       self.api_version = version
     end
 
+    # TODO: Attempt to discover the API version, as this is how we determine if the API is availble.
     def version
-      nil
+      1
     end
 
     def exec!(http_method, path, data = nil)
