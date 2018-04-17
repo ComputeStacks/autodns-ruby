@@ -319,7 +319,7 @@ EOF
 
     def valid_zone?
       self.errors << "Invalid SOA email address." if /^[^@]+@[^@]+\.[^@]+$/.match(self.soa_email).nil?
-      self.errors << "Missing domain name" if self.domain.to_s.length < 3
+      self.errors << "Missing domain name" if self.name.to_s.length < 3
       return false unless self.errors.empty?
       true
     end
