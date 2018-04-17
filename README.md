@@ -4,14 +4,14 @@
 #### Example:
 
 Load a Zone
-```ruby
+```
 auth = AutoDNS::Auth.new(0, 'computestacks', 'cKbXf82b2HgRSLwA', '33004')
 client = AutoDNS::Client.new(nil, auth)
-zone = AutoDNS::Dns::Zone.find(client, 'computestacks.es')
+zone = AutoDNS::Dns::Zone.find(client, 'usr.cloud')
 ```
 
 Create a Zone
-```ruby
+```
 auth = AutoDNS::Auth.new(0, 'computestacks', 'cKbXf82b2HgRSLwA', '33004')
 client = AutoDNS::Client.new(nil, auth)
 zone = AutoDNS::Dns::Zone.new(client, nil)

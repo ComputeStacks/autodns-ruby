@@ -68,7 +68,7 @@ module AutoDNS::Dns
   <ttl>#{self.ttl}</ttl>
   <type>#{self.type}</type>
   <pref>#{self.priority}</pref>
-  <value>#{self.value}</value>
+  <value>#{self.hostname}</value>
 </rr>
 EOF
       when 'A', 'AAAA'
@@ -80,7 +80,17 @@ EOF
   <value>#{self.ip}</value>
 </rr>
 EOF
-      when 'CNAME', 'TXT'
+      when 'CNAME'
+        <<EOF
+<rr>
+  <name>#{self.name}</name>
+  <ttl>#{self.ttl}</ttl>
+  <type>#{self.type}</type>
+  <value>#{self.hostname}</value>
+</rr>
+EOF
+
+      else
         <<EOF
 <rr>
   <name>#{self.name}</name>
