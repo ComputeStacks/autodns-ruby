@@ -1,14 +1,22 @@
 # AutoDNS Module for ComputeStacks
 
-This currently ONLY supports reverse DNS (PTR) records.
 
+#### Example:
+
+Load a Zone
+```ruby
+auth = AutoDNS::Auth.new(0, 'computestacks', 'cKbXf82b2HgRSLwA', '33004')
+client = AutoDNS::Client.new(nil, auth)
+zone = AutoDNS::Dns::Zone.find(client, 'computestacks.es')
 ```
-auth = Autodns::Auth.new(0, 'user', 'password', 'context')
-client = Autodns::Client.new('https://gateway.autodns.com', auth)
-zone = Autodns::Dns::Zone.new(client, '0.0.11.in-addr.arpa')
-record = Autodns::Dns::ZoneRecord.new(client, nil, nil)
-record.type = 'PTR'
-record.name = '55'
-record.value = 'something.net'
-zone.records['PTR'] << record
+
+Create a Zone
+```ruby
+auth = AutoDNS::Auth.new(0, 'computestacks', 'cKbXf82b2HgRSLwA', '33004')
+client = AutoDNS::Client.new(nil, auth)
+zone = AutoDNS::Dns::Zone.new(client, nil)
+zone.name = 'cmptstks.com'
+zone.soa_email = 'dns@computestacks.com'
+zone.default_ip = '62.116.130.8'
+zone
 ```

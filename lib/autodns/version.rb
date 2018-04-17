@@ -1,3 +1,3 @@
-module Autodns
-  VERSION = "0.1.0"
+module AutoDNS
+  VERSION = "2.0.0"
 end

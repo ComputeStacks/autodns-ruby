@@ -1,4 +1,4 @@
-module Autodns
+module AutoDNS
   class GeneralError < RuntimeError; end
   class ActionRefused < RuntimeError; end
 

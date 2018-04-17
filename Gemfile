@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in autodns.gemspec
+# Specify your gem's dependencies in pdns.gemspec
 gemspec

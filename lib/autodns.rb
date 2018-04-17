@@ -1,24 +1,49 @@
-require 'json'
 require 'httparty'
+require 'yaml'
 
 require 'autodns/auth'
 require 'autodns/client'
 require 'autodns/dns/zone'
 require 'autodns/dns/zone_record'
 require 'autodns/errors'
-require 'autodns/response'
 require 'autodns/settings'
-require "autodns/version"
+require 'autodns/version'
 
-module Autodns
+module AutoDNS
+
   ## Configuration defaults
-  # zone_type: Native, Master, or Slave
-  # masters: Array of master NS'.
+  # SOA Levels provided by AutoDNS. (pg. 159)
+  # soa_levels = {
+  #     recommended: {
+  #         level: 1,
+  #         refresh: 43200,
+  #         retry: 7200,
+  #         expire: 1209600,
+  #         ttl: 86400
+  #     },
+  #     high_reliability: {
+  #         level: 2,
+  #         refresh: 43200,
+  #         retry: 7200,
+  #         expire: 1209600,
+  #         ttl: 43200
+  #     },
+  #     fast: {
+  #         level: 3,
+  #         refresh: 43200,
+  #         retry: 7200,
+  #         expire: 1209600,
+  #         ttl: 600
+  #     },
+  # }
   #
   @config = {
-              zone_type: nil, # Not in use
-              masters: [],
-              nameservers: [] # Not in use.
+              endpoint: 'https://gateway.autodns.com',
+              nameservers: %w(ns1.auto-dns.com ns2.auto-dns.com ns3.autodns.nl ns4.autodns.nl),
+              master_ns: 'ns1.auto-dns.com',
+              ns_ttl: 86400,
+              soa_email: 'dns@usr.cloud',
+              soa_level: 2
             }
 
   @valid_config_keys = @config.keys
