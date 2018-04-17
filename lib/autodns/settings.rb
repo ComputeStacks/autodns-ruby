@@ -48,6 +48,11 @@ module AutoDNS
         false
       end
 
+      # Support DNSSEC?
+      def supports_dnssec?
+        false
+      end
+
     end
   end
 end

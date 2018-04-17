@@ -49,9 +49,9 @@ module AutoDNS::Dns
       end
     end
 
-    def zone
-      #?
-    end
+    # def zone
+    #   #?
+    # end
 
     # Not implemented.
     def enable_dnssec!; end # :nodoc:
