@@ -43,6 +43,11 @@ module AutoDNS
         false
       end
 
+      # Allow listing all domains on a DNS server.
+      def allow_list_all?
+        false
+      end
+
     end
   end
 end
