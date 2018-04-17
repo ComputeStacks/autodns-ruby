@@ -92,7 +92,13 @@ module AutoDNS::Dns
 </task>
 EOF
 
-      @client.exec!('post', nil, data)
+      result = @client.exec!('post', nil, data)
+      response = result.dig('response', 'result')
+      if response.dig('status', 'type') == 'error'
+        self.errors = [response]
+        return false
+      end
+      true
     end
 
     # Create a Zone
@@ -129,7 +135,7 @@ EOF
       result = @client.exec!('post', nil, data)
       response = result.dig('response', 'result')
       if response.dig('status', 'type') == 'error'
-        self.errors = response
+        self.errors = [response]
       end
       if response.dig('status', 'type') == 'success'
         self.id = response.dig('status', 'object', 'value') if response.dig('status', 'object', 'type') == 'zone'
@@ -148,7 +154,11 @@ EOF
   </zone>
 </task>
 EOF
-      @client.exec!('post', nil, data)
+      result = @client.exec!('post', nil, data)
+      response = result.dig('response', 'result')
+      if response.dig('status', 'type') == 'error'
+        self.errors = [response]
+      end
     end
 
     class << self
