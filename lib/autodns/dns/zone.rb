@@ -95,7 +95,7 @@ EOF
       result = @client.exec!('post', nil, data)
       response = result.dig('response', 'result')
       if response.dig('status', 'type') == 'error'
-        self.errors = [response]
+        self.errors << response
         return false
       end
       true
@@ -135,7 +135,11 @@ EOF
       result = @client.exec!('post', nil, data)
       response = result.dig('response', 'result')
       if response.dig('status', 'type') == 'error'
-        self.errors = [response]
+        if response.dig('status', 'msg', 'text')
+          self.errors << response.dig('status', 'msg', 'text')
+        else
+          self.errors << response
+        end
       end
       if response.dig('status', 'type') == 'success'
         self.id = response.dig('status', 'object', 'value') if response.dig('status', 'object', 'type') == 'zone'
@@ -157,7 +161,7 @@ EOF
       result = @client.exec!('post', nil, data)
       response = result.dig('response', 'result')
       if response.dig('status', 'type') == 'error'
-        self.errors = [response]
+        self.errors << response
       end
     end
 
