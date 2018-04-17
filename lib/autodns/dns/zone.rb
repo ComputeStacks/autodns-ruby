@@ -135,8 +135,8 @@ EOF
       result = @client.exec!('post', nil, data)
       response = result.dig('response', 'result')
       if response.dig('status', 'type') == 'error'
-        if response.dig('status', 'msg', 'text')
-          self.errors << response.dig('status', 'msg', 'text')
+        if response.dig('msg', 'text')
+          self.errors << response.dig('msg', 'text')
         else
           self.errors << response
         end
