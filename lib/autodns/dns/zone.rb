@@ -25,6 +25,7 @@ module AutoDNS::Dns
       self.features = {}
       self.axfr_ips = []
       self.errors = []
+      self.soa_email = AutoDNS.config[:soa_email]
       load!(data) unless data.empty?
     end
 
