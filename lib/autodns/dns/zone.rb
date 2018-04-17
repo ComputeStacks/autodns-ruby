@@ -61,14 +61,14 @@ module AutoDNS::Dns
     #
     # not implemented.
     def sec_params; [] end # :nodoc:
+
     def save
-      self.id.nil? ? create! : update!
       if self.id.nil?
-        update!
-      else
         create!
         return find(@client, self.id) if self.errors.empty?
         false # Because we failed to create it!
+      else
+        update!
       end
     rescue => e
       e.to_s
