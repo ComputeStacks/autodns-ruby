@@ -53,6 +53,11 @@ module AutoDNS
         false
       end
 
+      # TXT records limited to 255.
+      def has_txt_limit?
+        true
+      end
+
     end
   end
 end
