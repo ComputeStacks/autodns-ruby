@@ -31,7 +31,7 @@ module AutoDNS::Dns
       self.ttl = data['ttl'] if data['ttl']
       self.type = data['type']
       case self.type
-      when 'CNAME', 'NS'
+      when 'CNAME', 'NS', 'PTR'
         self.hostname = data['value']
       when 'A', 'AAAA'
         self.ip = data['value']
@@ -48,7 +48,7 @@ module AutoDNS::Dns
     # Format record value specifically for PowerDNS.
     def raw_value
       case self.type
-      when 'CNAME', 'NS'
+      when 'CNAME', 'NS', 'PTR'
         self.hostname
       when 'A', 'AAAA'
         self.ip
@@ -80,7 +80,7 @@ EOF
   <value>#{self.ip}</value>
 </rr>
 EOF
-      when 'CNAME'
+      when 'CNAME', 'PTR'
         <<EOF
 <rr>
   <name>#{self.name}</name>
