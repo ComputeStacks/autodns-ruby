@@ -1,7 +1,18 @@
-##
-# DNS Zone
-#
 module AutoDNS::Dns
+  # =DNS Zone for AutoDNS
+  #
+  # Attributes:
+  # [+id+]
+  # [+name+]
+  # [+records+] An Array of AutoDNS::Dns::ZoneRecord
+  # [+dnssec+] Boolean if DNSSEC is enabled. (Disabled in AutoDNS)
+  # [+features+] Hash of parameters specific to this DNS provider
+  # [+soa_email+] Public email in the SOA record for this zone.
+  # [+axfr_ips+] An Array of IPs allowed to AXFR this zone.
+  # [+errors+] An Array of Strings
+  # [+updated_at+]
+  # [+created_at+]
+  #
   class Zone
 
     attr_accessor :id,
@@ -16,6 +27,7 @@ module AutoDNS::Dns
                   :updated_at,
                   :created_at
 
+    # Requires AutoDNS::Client, and the ID of the zone (nil for new zones).
     def initialize(client, id, data = {})
       @client = client
       self.id = id
@@ -50,10 +62,6 @@ module AutoDNS::Dns
       end
     end
 
-    # def zone
-    #   #?
-    # end
-
     # Not implemented.
     def enable_dnssec!; end # :nodoc:
 
@@ -71,8 +79,6 @@ module AutoDNS::Dns
       else
         update!
       end
-    rescue => e
-      e.to_s
     end
 
     def update!
@@ -289,8 +295,6 @@ EOF
           'TXT' => []
       }
     end
-
-    ## helpers ##
 
     # SOA formatted
     def formatted_soa

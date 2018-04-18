@@ -1,12 +1,18 @@
-# PowerDNS Client
-#
 module AutoDNS
+  # =AutoDNS Client
+  #
+  # [+endpoint+] API Endpoint. Will default to global param.
+  # [+auth+] AutoDNS::Auth
+  # [+api_version+] Not used in AutoDNS
+  #
   class Client
 
     attr_accessor :endpoint,
                   :auth,
                   :api_version
 
+    # Requires +endpoint+, and AutoDNS::Auth.
+    # optionally pass a Hash.
     def initialize(endpoint, auth, data = {})
       self.endpoint = endpoint.nil? ? AutoDNS.config[:endpoint] : endpoint
       self.auth = auth
@@ -17,6 +23,10 @@ module AutoDNS
       0 # not implemented
     end
 
+    # Initiate API call.
+    #
+    # Returns raw response; no processing is done here.
+    #
     def exec!(http_method, path, req_data)
 
       data = '<?xml version="1.0" encoding="UTF-8"?><request>' + auth.auth_obj + req_data + '</request>'

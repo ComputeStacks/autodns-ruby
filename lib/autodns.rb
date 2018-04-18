@@ -5,13 +5,22 @@ require 'autodns/auth'
 require 'autodns/client'
 require 'autodns/dns/zone'
 require 'autodns/dns/zone_record'
-require 'autodns/errors'
 require 'autodns/settings'
 require 'autodns/version'
 
 module AutoDNS
 
-  ## Configuration defaults
+  # =AutoDNS DNS provider for ComputeStacks.
+  #
+  # =Configuration defaults
+  #
+  # [+endpoint+] API Endpoint
+  # [+nameservers+] List of all default name servers.
+  # [+master_ns+] Primary NS
+  # [+ns_ttl+] Default TTL for zones.
+  # [+soa_email+] Default SOA email for all new zones.
+  # [+soa_level+] Preset SOA defaults from AutoDNS. See below:
+  #
   # SOA Levels provided by AutoDNS. (pg. 159)
   # soa_levels = {
   #     recommended: {
@@ -43,7 +52,7 @@ module AutoDNS
               master_ns: 'ns1.auto-dns.com',
               ns_ttl: 86400,
               soa_email: 'dns@usr.cloud',
-              soa_level: 2
+              soa_level: 2 # Predefined SOA values for AutoDNS.
             }
 
   @valid_config_keys = @config.keys

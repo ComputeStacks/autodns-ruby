@@ -1,7 +1,9 @@
-##
-# Settings
-#
 module AutoDNS
+  # =AutoDNS Gem Settings
+  #
+  # [+key+] Setting Key
+  # [+value+] Setting Value
+  #
   class Settings
 
     attr_accessor :key,
