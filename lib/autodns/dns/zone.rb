@@ -266,7 +266,9 @@ EOF
         }
         records['NS'] << AutoDNS::Dns::ZoneRecord.new(nil, nil, self.name, record_data)
       end
-      if data['rr']
+      if data['rr'].is_a?(Hash)
+        records[data['rr']['type']] << AutoDNS::Dns::ZoneRecord.new(nil, nil, self.name, data['rr'])
+      elsif data['rr'].is_a?(Array)
         data['rr'].each do |i|
           type = i['type']
           records[type] << AutoDNS::Dns::ZoneRecord.new(nil, nil, self.name, i)
