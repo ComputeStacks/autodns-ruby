@@ -74,7 +74,7 @@ module AutoDNS::Dns
     def save
       if self.id.nil?
         create!
-        return find(@client, self.id) if self.errors.empty?
+        return AutoDNS::DNS.find(@client, self.id) if self.errors.empty?
         false # Because we failed to create it!
       else
         update!
