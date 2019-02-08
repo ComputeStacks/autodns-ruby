@@ -30,6 +30,7 @@ module AutoDNS::Dns
       self.name = data['name'].nil? ? zone_id : data['name']
       self.ttl = data['ttl'] if data['ttl']
       self.type = data['type']
+      data['value'] = data['value'].gsub('"', '').strip
       case self.type
       when 'CNAME', 'NS'
         self.hostname = data['value']
@@ -40,12 +41,17 @@ module AutoDNS::Dns
         self.hostname = data['value']
       when 'NS'
         self.hostname = data['value']
-      else # TXT, PTR
-        self.value = data['value']
+      when 'TXT'
+        # For longer strings, partition into multiple "" sections.
+        val = data['value']
+        self.value = val&.length > 254 ? "\"#{val[0..254]}\" \"#{val[255..-1]}\"" : val
+      else PTR
+        self.value = data['value'].gsub('"', '').strip
       end
     end
 
     # Format record value specifically for PowerDNS.
+    # TODO: Is this still in use?
     def raw_value
       case self.type
       when 'CNAME', 'NS'
@@ -54,8 +60,13 @@ module AutoDNS::Dns
         self.ip
       when 'MX'
         "#{self.priority} #{self.hostname}"
-      else # PTR, TXT
-        self.value
+      when 'TXT'
+        # Strip quotes
+        self.value = self.value.gsub('"', '').strip
+        # For longer strings, partition into multiple "" sections.
+        self.value = "\"#{self.value[0..254]}\" \"#{self.value[255..-1]}\"" if self.value.length > 254
+      else # PTR
+        self.value.strip
       end
     end
 
