@@ -31,6 +31,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'httparty', '~> 0.17'
 
   spec.add_development_dependency "pry"
-  spec.add_development_dependency "rake", ">= 12.0"
+  spec.add_development_dependency "rake", "~> 12.3"
   spec.add_development_dependency "rdoc", "~> 6.2"
 end
